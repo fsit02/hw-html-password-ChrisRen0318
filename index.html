@@ -6,24 +6,131 @@
 <script src="js/jquery.js"></script>
 <script src="js/seedrandom.js"></script>
 <style>
+
+body{
+	background-image:url("images/gradientBlue.png");
+	background-repeat:repeat-x;
+	
+	
+}
+
+.p1{
+	font-family: monospace;
+    font-size: 2.0em
+}
+
+ul.nav{
+	
+	background: #E38EFF;
+    padding: 20px;
+}
+
+ul.nav li{
+background: #cce5ff;
+    margin: 5px;
+}
 #randomTable {
     font-family: monospace;
-    font-size: 2.0em;
+    font-size: 2.0em
+    
 }
+
+
+#btnGo1{
+	width:20em;
+	background-color:#7700BB;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+		border-radius: 8px;
+}
+
+#btnGo2{
+	width:20em;
+	background-color:#FF0088;
+	border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+		border-radius: 8px;
+}
+
+#btnGo3{
+	
+	width:20em;
+	background-color:#FF8800;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+#txtSeed{
+	padding: 10px 25px;
+	margin: 4px 2px;
+	border: 2px solid red;
+    border-radius: 12px;
+}
+
+
+#txtNum{
+	padding: 10px 25px;
+	margin: 4px 2px;
+	border: 2px solid red;
+    border-radius: 12px;
+}
+
 </style>
 </head>
+
+
+
 <body>
 
+		
+<p class="p1">請設定行數：<input type="text" id="txtNum" value="1" size="2em"/>
+<a href="http://ppt.cc/3reff"  title="使用說明"><img src="./images/1420817206.png" width="25" height="25"  ></a>
+<br>
 請輸入亂數表的編號：<input type="text" id="txtSeed" value="1234" />
-&nbsp;<input type="button" id="btnGo" value="產生亂數表" />
+<br>
+</p>
+
+
+
+&nbsp;<input type="button" id="btnGo1" value="產生亂數表" />
+&nbsp;<input type="button" id="btnGo2" value="產生數字+小寫字母亂數表" />
+&nbsp;<input type="button" id="btnGo3" value="產生數字+大小寫字母亂數表" />
+
+
+
+
+
 
 <div id="randomTable">
+
 </div>
 
 <script>
 
-$("#btnGo").click(function () {
-    var result = "";
+$("#btnGo1").click(function () {
+	
+	var Num = new Number(txtNum.value);
+	
+    var result = "<br><ul class='nav'>";
 	// 純數字:
 	var sPool = "0123456789";
     // 數字+小寫字母: (去除 l, o)
@@ -33,17 +140,73 @@ $("#btnGo").click(function () {
 
     Math.seedrandom($("#txtSeed").val()); // 設定亂數種子
 	var iRandom = 0; var ch = "?";
-	for (iRow = 1; iRow <= 10; iRow++) {
-		var sLine = (iRow + 100).toString().substr(1, 2) + ": ";
+	
+	for (iRow = 1; iRow <= Num; iRow++) {
+		var sLine =""; //(iRow + 100).toString().substr(1, 2) + ": ";
 		for (iCol = 1; iCol <= 10; iCol++) {
 			iRandom = Math.floor(Math.random() * sPool.length);
 			ch = sPool.substr(iRandom, 1);
 			sLine += ch;
 		}
-		result += sLine + "<br>";
+		result +="<li>" + sLine+"</li>";
 	}
+	result += "</ul>";
+	$("#randomTable").html(result);
+	
+	
+	
+});
+
+$("#btnGo2").click(function () {
+	var Num = new Number(txtNum.value);
+    var result = "<br><ul class='nav'>";
+	// 純數字:
+	// var sPool = "0123456789";
+    // 數字+小寫字母: (去除 l, o)
+    var sPool = "abcdefghijkmnpqrstuvwxyz0123456789";
+    // 數字+大小寫字母: (去除 I, O, l, o)
+    // var sPool = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz0123456789";
+
+    Math.seedrandom($("#txtSeed").val()); // 設定亂數種子
+	var iRandom = 0; var ch = "?";
+	for (iRow = 1; iRow <= Num; iRow++) {
+		var sLine =""; //(iRow + 100).toString().substr(1, 2) + ": ";
+		for (iCol = 1; iCol <= 10; iCol++) {
+			iRandom = Math.floor(Math.random() * sPool.length);
+			ch = sPool.substr(iRandom, 1);
+			sLine += ch;
+		}
+			result +="<li>" + sLine+"</li>";
+	}
+	result += "</ul>";
 	$("#randomTable").html(result);
 });
+
+$("#btnGo3").click(function () {
+	var Num = new Number(txtNum.value);
+   var result = "<br><ul class='nav'>";
+	// 純數字:
+	// var sPool = "0123456789";
+    // 數字+小寫字母: (去除 l, o)
+    // var sPool = "abcdefghijkmnpqrstuvwxyz0123456789";
+    // 數字+大小寫字母: (去除 I, O, l, o)
+    var sPool = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz0123456789";
+
+    Math.seedrandom($("#txtSeed").val()); // 設定亂數種子
+	var iRandom = 0; var ch = "?";
+	for (iRow = 1; iRow <= Num; iRow++) {
+		var sLine =""; //(iRow + 100).toString().substr(1, 2) + ": ";
+		for (iCol = 1; iCol <= 10; iCol++) {
+			iRandom = Math.floor(Math.random() * sPool.length);
+			ch = sPool.substr(iRandom, 1);
+			sLine += ch;
+		}
+			result +="<li>" + sLine+"</li>";
+	}
+	result += "</ul>";
+	$("#randomTable").html(result);
+});
+
 
 </script>
 
